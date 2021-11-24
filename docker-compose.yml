@@ -1,0 +1,35 @@
+version: "2.1"
+services:
+  no1:
+    image: elliottchaves/ifpb:no
+    container_name: no1
+    hostname: no1 #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Recife
+      - PASSWORD_ACCESS=true #optional
+      - USER_PASSWORD=so_no1 #optional
+      - USER_NAME=so_no1 #optional
+    volumes:
+      - ./no1:/no1
+    ports:
+      - 2222:2222
+    restart: unless-stopped
+    
+  no2:
+    image: elliottchaves/ifpb:no
+    container_name: no2
+    hostname: no2 #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Recife
+      - PASSWORD_ACCESS=true #optional
+      - USER_PASSWORD=so_no2 #optional
+      - USER_NAME=so_no2 #optional
+    volumes:
+      - ./no2:/no2
+    ports:
+      - 2223:2222
+    restart: unless-stopped
