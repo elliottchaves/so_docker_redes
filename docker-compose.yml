@@ -1,9 +1,13 @@
 version: "2.1"
 services:
   no1:
+    #build: .
     image: elliottchaves/ifpb:no
     container_name: no1
     hostname: no1 #optional
+    networks:
+      so_network:
+        ipv4_address: 172.16.99.99
     environment:
       - PUID=1000
       - PGID=1000
@@ -11,6 +15,7 @@ services:
       - PASSWORD_ACCESS=true #optional
       - USER_PASSWORD=so_no1 #optional
       - USER_NAME=so_no1 #optional
+      - SUDO_ACCESS=true
     volumes:
       - ./no1:/no1
     ports:
@@ -19,8 +24,12 @@ services:
     
   no2:
     image: elliottchaves/ifpb:no
+    #build: .
     container_name: no2
     hostname: no2 #optional
+    networks:
+      so_network:
+        ipv4_address: 172.16.99.100
     environment:
       - PUID=1000
       - PGID=1000
@@ -28,8 +37,16 @@ services:
       - PASSWORD_ACCESS=true #optional
       - USER_PASSWORD=so_no2 #optional
       - USER_NAME=so_no2 #optional
+      - SUDO_ACCESS=true
     volumes:
       - ./no2:/no2
     ports:
       - 2223:2222
     restart: unless-stopped
+
+networks:
+        so_network:
+                ipam:
+                        driver: default
+                        config:
+                                - subnet: "172.16.99.0/24"
